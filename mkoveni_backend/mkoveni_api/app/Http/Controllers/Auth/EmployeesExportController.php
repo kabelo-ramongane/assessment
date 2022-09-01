@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EmployeesExport;
+use App\Employee;
 
 class EmployeesExportController extends Controller
 {
@@ -13,4 +14,11 @@ class EmployeesExportController extends Controller
     {
         return Excel::download(new EmployeesExport, 'employees.xlsx');
     }
+
+    function index()
+   {
+       $data = Employee::get(); //DB::table('employees');
+       json_encode($data);
+       return response()->json(['employees' => $data]);
+   }
 }

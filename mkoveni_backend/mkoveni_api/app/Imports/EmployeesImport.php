@@ -4,9 +4,11 @@ namespace App\Imports;
 
 use App\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Facades\Excel;
+use Throwable;
 
-class EmployeesImport implements ToModel
+class EmployeesImport implements ToModel, SkipsOnError
 {
     //use App\Imports\UsersImport;
 
@@ -31,5 +33,10 @@ class EmployeesImport implements ToModel
             'Project Code 2' => $row[10],
             'Project Code 3' => $row[11],
         ]);
+    }
+
+    public function onError(Throwable $error)
+    {
+      
     }
 }
