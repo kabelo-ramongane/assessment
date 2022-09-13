@@ -18,10 +18,12 @@ class CreateEmployeesTable extends Migration
           $table->string('First Name');
           $table->string('Surname');
           $table->string('Date of Birth');
+          //$table->string('Age');
           $table->string('Position');
           $table->string('Start Date');
           $table->string('Department');
           $table->string('Annual Salary');
+          //$table->string('Bonus');
           $table->string('Manager Employee Number')->nullable();
           $table->string('Project Code 1')->nullable();
           $table->string('Project Code 2')->nullable();

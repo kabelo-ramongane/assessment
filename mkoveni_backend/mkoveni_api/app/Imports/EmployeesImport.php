@@ -6,6 +6,7 @@ use App\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Throwable;
 
 class EmployeesImport implements ToModel, SkipsOnError
@@ -23,11 +24,13 @@ class EmployeesImport implements ToModel, SkipsOnError
             'Employee Number' => $row[0],
             'First Name' => $row[1],
             'Surname' => $row[2],
-            'Date of Birth' => $row[3],
+            'Date of Birth' => $this->convertDate($row[3]),
+            //'age' => $this->convertDate($row[3]),
             'Position' => $row[4],
-            'Start Date' => $row[5],
+            'Start Date' => $this->convertDate($row[5]),
             'Department' => $row[6],
             'Annual Salary' => $row[7],
+            //'Bonus' => ((float)$row[7]*0.05),
             'Manager Employee Number' => $row[8],
             'Project Code 1' => $row[9],
             'Project Code 2' => $row[10],
@@ -35,8 +38,16 @@ class EmployeesImport implements ToModel, SkipsOnError
         ]);
     }
 
+
+    function convertDate($dateValue) {
+
+      $unixDate = ((int)$dateValue - 25569) * 86400;
+      return gmdate("Y-m-d", $unixDate);
+    }
+
+    //$phpdate = strtotime( $mysqldate );
     public function onError(Throwable $error)
     {
-      
+
     }
 }
